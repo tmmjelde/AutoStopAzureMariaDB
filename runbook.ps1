@@ -12,10 +12,10 @@ $RunningDBs = $json | where {$_.userVisibleState -eq 'Ready'}
 $StoppedDBs = $json | where {$_.userVisibleState -eq 'Stopped'}
 #Write some output for the stopped servers
 foreach ($db in $StoppedDBs){
-	write-host "Already stopped: $($db.name)"
+	write-output "Already stopped: $($db.name)"
 }
 #Write output for the running servers and stop them. 
 foreach ($db in $RunningDBs){
-	write-host "Stopping server $($db.name)"
+	write-output "Stopping server $($db.name)"
 	az mariadb server stop --resource-group $db.resourceGroup --name $db.name --only-show-errors
 }
